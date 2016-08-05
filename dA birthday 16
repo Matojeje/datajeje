@@ -1,0 +1,49 @@
+<td id="oh-menu-promo" class="oh-keep">
+            <div id="overhead-promo">
+                <a class="overhead-promo-a" href="http://heidi.deviantart.com/journal/Celebrating-16-Years-of-DeviantArt-620395273" data-ga_click_event="{&quot;category&quot;:&quot;HeaderPromo&quot;,&quot;action&quot;:&quot;header_promo_click&quot;,&quot;nofollow&quot;:0,&quot;label&quot;:&quot;080516_MKT_Birthday&quot;}">
+                                    <img src="http://st.deviantart.net/promotions/201608/confetti.gif" class="confetti">
+                                    <img src="http://st.deviantart.net/promotions/201608/icecream.gif" class="icecream">
+                                    <img src="http://st.deviantart.net/promotions/201608/sub-text.svg" class="sub-text">
+                                </a>
+            </div>
+            <style>
+            
+                    .overhead-promo-a {
+                        display: block;
+                        width: 100px;
+                        height: 50px;
+                        overflow: hidden;
+                        transition: height 0.3s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+                        box-shadow: 0 2px 3px rgba(0,0,0,0.30);
+                        background: transparent url('http://st.deviantart.net/promotions/201608/birthday-v1-bg.gif') 50% 0/100px auto no-repeat;
+                    }
+                    .overhead-promo-a .confetti {
+                        width: 100px;
+                        height: 100px;
+                    }
+                    .overhead-promo-a .icecream {
+                        position: absolute;
+                        top: 57px;
+                        left: 8px;
+                        width: 15px;
+                        transform: translate(0, 50px);
+                        transition: all 0.6s cubic-bezier(.28,1.1,.6,1.11);
+                    }
+                    .overhead-promo-a .sub-text {
+                        position: absolute;
+                        top: 62px;
+                        left: 24px;
+                        width: 68px;
+                        transform: translate(0, 50px);
+                        transition: all 0.6s cubic-bezier(.28,1.1,.6,1.11);
+                        transition-delay: 0.15s;
+                    }
+                    .overhead-promo-a:hover {
+                        height: 100px;
+                    }
+                    .overhead-promo-a:hover .icecream,
+                    .overhead-promo-a:hover .sub-text {
+                        transform: translate(0, 0);
+                    }
+                            </style>
+        </td>
