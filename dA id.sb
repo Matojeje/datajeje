@@ -1,0 +1,206 @@
+Clipboard.SetText((Program.Directory)+"\vysledek.mato")
+TextWindow.ForegroundColor = "White"
+TextWindow.WriteLine("dA deviation ID converter * by Matojeje")
+TextWindow.WriteLine("")
+TextWindow.ForegroundColor = "Gray"
+TextWindow.WriteLine("Next update will add a really nice UI. Also it'll add a prediction when will the deviation with the ID be uploaded. I just want to get the program out now.")
+TextWindow.WriteLine("v1.0 | 29 and 30.10.2016 | matojeje.deviantart.com")
+TextWindow.ForegroundColor = "Green"
+TextWindow.WriteLine("---")
+začátek:
+TextWindow.ForegroundColor = "White"
+TextWindow.PauseWithoutMessage()
+TextWindow.WriteLine("")
+TextWindow.ForegroundColor = "White"
+TextWindow.Write("Write a ")
+TextWindow.ForegroundColor = "Green"
+TextWindow.Write("deviation ID. ")
+TextWindow.ForegroundColor = "White"
+TextWindow.WriteLine("It can be either a long number or a")
+TextWindow.WriteLine("mix of numbers with letters that starts with lowercase D.")
+TextWindow.WriteLine("")
+TextWindow.ForegroundColor = "Green"
+TextWindow.WriteLine("Where to find these:")
+TextWindow.ForegroundColor = "White"
+TextWindow.WriteLine("The long number is in the URL, the alphanumeric one is in the fav.me link.")
+TextWindow.WriteLine("")
+TextWindow.WriteLine("I do my best to determine between the two and convert it to the other one.")
+TextWindow.WriteLine("Please include the first lowercase D if it's a fav.me link.")
+TextWindow.ForegroundColor = "Green"
+TextWindow.WriteLine("---")
+smyčka:
+  ok=0
+  hotovo=0
+  chyba=0
+  jeBase36=0
+  jeBase10=0
+  jeLink=0
+  máHttpPrefix=0
+TextWindow.WriteLine("")
+TextWindow.ForegroundColor = "Cyan"
+TextWindow.Write("Tell me a Deviation ID, or fav.me link or ID: ")
+id=TextWindow.Read()
+TextWindow.ForegroundColor = "Green"
+id=Text.ConvertToLowerCase(id)
+If Text.StartsWith((Text.ConvertToLowerCase(id)),"http://fav.me/d") = "True" Then
+  ok=1
+  jeBase36=1
+  jeBase10=0
+  jeLink=1
+  máHttpPrefix=1
+  novéID=TextPlus.ReplaceSubText(id,"http://fav.me/d","")
+ElseIf Text.StartsWith((Text.ConvertToLowerCase(id)),"https://fav.me/d") = "True" Then
+  ok=1
+  jeBase36=1
+  jeBase10=0
+  jeLink=1
+  máHttpPrefix=1
+  novéID=TextPlus.ReplaceSubText(id,"https://fav.me/d","")
+ElseIf Text.StartsWith((Text.ConvertToLowerCase(id)),"fav.me/d") = "True" Then
+  ok=1
+  jeBase36=1
+  jeBase10=0
+  jeLink=1
+  máHttpPrefix=0
+  novéID=TextPlus.ReplaceSubText(id,"fav.me/d","")
+ElseIf Text.StartsWith((Text.ConvertToLowerCase(id)),"d") = "True" Then
+  ok=1
+  jeBase36=1
+  jeBase10=0
+  jeLink=0
+  máHttpPrefix=0
+  novéID=TextPlus.Append("×",id)
+  novéID=TextPlus.ReplaceSubText(novéID,"×d","")
+ElseIf TextPlus.IsEmpty(id) = "True" Then
+  chyba=1
+  ok=0
+  jeBase36=0
+  jeBase10=0
+  jeLink=0
+  máHttpPrefix=0
+  TextWindow.ForegroundColor = "Red"
+  TextWindow.WriteLine("Error: You didn't write anything, silly.")
+  Goto smyčka
+ElseIf MathPlus.IsNumberNegative(id) = "False" Then
+  ok=1
+  jeBase36=0
+  jeBase10=1
+  jeLink=0
+  máHttpPrefix=0
+ElseIf MathPlus.IsNumberNegative(id) = "True" Then
+  ok=1
+  jeBase36=0
+  jeBase10=1
+  jeLink=0
+  máHttpPrefix=0
+  TextWindow.ForegroundColor = "Yellow"
+  TextWindow.WriteLine("I'll get rid of that minus for you.")
+Else
+  chyba=1
+  ok=0
+  jeBase36=0
+  jeBase10=0
+  jeLink=0
+  máHttpPrefix=0
+  TextWindow.ForegroundColor = "Red"
+  TextWindow.WriteLine("Error: Something's wrong with the thing you wrote.")
+  Goto smyčka
+  '¯\_(ツ)_/¯
+EndIf
+If ok = 1 And hotovo = 0 Then
+  TextWindow.Write("Format check - OK. ")
+  TextWindow.ForegroundColor = "White"
+  TextWindow.Write("* ")
+  TextWindow.ForegroundColor = "Green"
+  If jeBase36 = 1 Then
+    pID=LDProcess.Start((Program.Directory)+"\tools\baseconvert.exe","dA_"+novéID)
+    If jeLink = 1 Then
+      TextWindow.Write("Processing your link. ")
+    ElseIf jeLink = 0 Then
+      TextWindow.Write("Processing the ID. ")
+    EndIf
+    Program.Delay(1700)
+    TextWindow.Write(".")
+    Program.Delay(200)
+    TextWindow.Write(".") ' Delay because we're waiting for the other program to finish processing the number into a file
+    Program.Delay(200)
+    TextWindow.WriteLine(".")
+  ElseIf jeBase10 = 1 Then
+    pID=LDProcess.Start((Program.Directory)+"\tools\baseconvert.exe","dec_"+id)
+    TextWindow.Write("Processing the decimal ID. ")
+    Program.Delay(1700)
+    TextWindow.Write(".")
+    Program.Delay(200)
+    TextWindow.Write(".") ' Same here. Check baseconvert.sb for details why I have to do this.
+    Program.Delay(200)
+    TextWindow.WriteLine(".")
+  EndIf
+  vysledek=File.ReadLine((Program.Directory)+"\tools\vysledek.mato",1)
+  Program.Delay(50) ' In case the reading takes some time
+  If vysledek = "" Or vysledek = " " Then
+    Program.Delay(500)
+    If vysledek = "" Or vysledek = " " Then
+      TextWindow.ForegroundColor = "Red"
+      TextWindow.WriteLine("Something weird is happening with the results ...")
+    Else
+      'File.DeleteFile((Program.Directory)+"\vysledek.mato")
+    EndIf
+  EndIf
+  TextWindow.ForegroundColor = "Green"
+  TextWindow.Write("Finished. I turned it to ")
+  If jeBase36 = 1 Then
+    hotovo = 1
+    TextWindow.Write("a Deviation ID for you: ")
+    TextWindow.ForegroundColor = "White"
+    TextWindow.WriteLine(vysledek)
+    TextWindow.WriteLine("")
+    TextWindow.ForegroundColor = "Green"
+    TextWindow.WriteLine("Here's how the link would look like.")
+    TextWindow.WriteLine("")
+    TextWindow.ForegroundColor = "Gray"
+    TextWindow.Write("www.deviantart.com/deviation/")
+    TextWindow.ForegroundColor = "White"
+    TextWindow.WriteLine(vysledek)
+    TextWindow.ForegroundColor = "Green"
+    Clipboard.SetText("www.deviantart.com/deviation/"+vysledek)
+    TextWindow.WriteLine("")
+    TextWindow.WriteLine("I copied it to your clipboard!")
+    TextWindow.Write("You can also use it as a thumbnail. ")
+    TextWindow.ForegroundColor = "Gray"
+    TextWindow.Write(":thumb")
+    TextWindow.ForegroundColor = "White"
+    TextWindow.Write(vysledek)
+    TextWindow.ForegroundColor = "Gray"
+    TextWindow.WriteLine(":")
+    TextWindow.ForegroundColor = "DarkGreen"
+    TextWindow.WriteLine("--")
+    TextWindow.WriteLine("Matojeje 2016")
+    TextWindow.ForegroundColor = "Green"
+  ElseIf jeBase10 = 1 Then
+    hotovo = 1
+    TextWindow.WriteLine("a fav.me link for you:")
+    TextWindow.ForegroundColor = "Gray"
+    TextWindow.Write("fav.me/")
+    TextWindow.ForegroundColor = "White"
+    TextWindow.WriteLine("d"+vysledek)
+    TextWindow.ForegroundColor = "Green"
+    TextWindow.WriteLine("")
+    TextWindow.Write("That's an alphanumeric ID, or if a 'hexatrigesimal string' if you want.")
+    TextWindow.ForegroundColor = "DarkGreen"
+    TextWindow.WriteLine(" :3")
+    TextWindow.ForegroundColor = "Green"
+    TextWindow.WriteLine("")
+    Clipboard.SetText("fav.me/d"+vysledek)
+    TextWindow.WriteLine("I copied it to your clipboard.")
+    TextWindow.ForegroundColor = "DarkGreen"
+    TextWindow.WriteLine("--")
+    TextWindow.WriteLine("Matojeje 2016")
+    TextWindow.ForegroundColor = "Green"
+  EndIf
+  Goto smyčka
+EndIf
+
+'Sorry for all the unnecessary text. I want this to be user-friendly~
+'V1 | matojeje.deviantart.com
+
+'Thanks to LitDev. https://social.msdn.microsoft.com/Forums/en-US/dc6ef888-5d4c-4806-a58b-51248d6c4ee4/convert-between-decimal-and-hexatrigesimal-numbers-base10-and-base36?forum=smallbasic#dc6ef888-5d4c-4806-a58b-51248d6c4ee4

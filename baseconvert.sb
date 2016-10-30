@@ -1,0 +1,58 @@
+'base converter by Matojeje. V1 for SmallBasic 1.2 | 29 and 30.10.2016
+
+'Why a separate program?
+'Because I asked LitDev (creator of the awesome LD plugins) on the SmallBasic forums to make more
+'number bases available in LDMath.Decimal2Base and LDMath.Base2Decimal, and he added it there,
+'but the plugin was no longer working for SB v1.0 I usually use, and SB v1.2 which is compatible with
+'the newest versions of his plugins doesn't want to read the extensions for SB v1.0... And I really need
+'the extensions because I always use GameWindow from DataPlugin, never GraphicsWindow. I just
+'need to use V1.0, alright? And why didn't I update the plugins to SB 1.2?    ...   I dunno. I'm lazy. =w=
+
+'To use this, launch the EXE file with an argument, which is a deviantion ID with a prefix that changes
+'depending on the format of the ID. If it's a decimal ID, write [dec_]. If it's a hexatrigesimal number,
+'(that means mixed letters and numbers, usually appears in fav.me links) write [dA_]. Both should be
+'written without the square brackets and if you're getting the hexatrigesimal thingy from a fav.me
+'link, the first letter is probably lowercase D. remove that, it's not a part of the value. If you're confused,
+'just remove the  "fav.me/d"  part and replace it with  "dA_"  . When we're talking about the deviation
+'ID, you should be able to find that in the drawing's URL, for recent deviations it's about nine numbers
+'long. Did you know that as long as the ID in the URL stays the same, you can play with the URL like
+'changing the nickname subdomain or the deviation name, and you still get linked to the same thing.
+'You can also just change it to deviantart.com/deviation/{ID} and hide the nickname and submission
+'name that way. But anyways, i'm getting too far away from the tutorial on using this. Simply call it
+'with LDProcess.Start("[path]\baseconvert.sb",[dA deviation ID]). For example:
+
+'LDProcess.Start((Program.Directory)+"\baseconvert.sb","dec_635278487")
+'LDProcess.Start((Program.Directory)+"\baseconvert.sb","dA_ai880n")
+
+'Troubleshooting * how to know if there's an error:
+'Clicks once - doesn't understand the argument
+'Clicks twice - too many arguments or none at all
+
+'Output * where do the results go:
+'It writes the converted deviation ID into a text file "vysledek.mato" in the EXE's directory.
+'Feel free to change the filename on lines 48 and 52 or replace it with something like "Clipboard.SetText"
+
+'========================================================================
+
+počet=Program.ArgumentCount
+If počet = 1 Then
+  Goto check_vpořádku
+Else
+  Sound.PlayClickAndWait()
+EndIf
+check_vpořádku:
+číslo=Program.GetArgument(1)
+If Text.StartsWith(číslo,"dec_")="True" Then
+  typ = "dec2base"
+  číslo = LDText.Replace(číslo,"dec_","")
+  File.WriteContents((Program.Directory)+"\výsledek.mato",(LDMath.Decimal2Base(číslo,36)))
+ElseIf Text.StartsWith(číslo,"dA_")="True" Then
+  typ = "base2dec"
+  číslo = LDText.Replace(číslo,"dA_","")
+  File.WriteContents((Program.Directory)+"\výsledek.mato",(LDMath.Base2Decimal(číslo,36)))
+Else
+  Sound.PlayClickAndWait()
+EndIf
+Program.End()
+
+' 🍪
