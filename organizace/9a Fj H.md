@@ -1,5 +1,7 @@
 #Organizace tašky: Fj - H
-`🍪` *Matouš Dřízhal*
+`🍪`    *Matouš Dřízhal | 9.A*
+
+*****
 
 *   **Návod**
     *   [Celý týden](#v-tašce-pořád)
