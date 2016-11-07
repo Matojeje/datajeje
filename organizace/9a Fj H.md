@@ -1,4 +1,5 @@
 #Organizace tašky: Fj - H
+`🍪` *Matouš Dřízhal*
 
 *   **Návod**
     *   [Celý týden](#v-tašce-pořád)
@@ -8,7 +9,6 @@
     *   **[Čtvrtek](#Čtvrtek)**
     *   **[Pátek](#pátek)**
     
-*   
 *   **[Tipy](#mnemotechnické-pomůcky)**
     
 
@@ -168,5 +168,6 @@
 ######\[[Na začátek](#organizace-tašky-fj---h)\]
 
 - [x] Matematika i čeština jsou každý den, a po Čj-Lit je vždy Čj-Ml
-- [x] Chemie i Dějepis se oba vyskytují vždy spolu: v pondělí a středu.
+- [x] Chemie i Dějepis se oba vyskytují vždy spolu: v pondělí a středu. V obou případech v pořadí Ch➡D
 - [x] Matematika je vždycky před nebo po velké přestávce
+- [x] Hodiny tělesné výchovy máme ve stejné dny, jako odpolední vyučování s p. Kreuziger
